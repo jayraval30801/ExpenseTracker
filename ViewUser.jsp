@@ -25,7 +25,7 @@
 			<b>Email</b> :<%=email%><bR>
 			<b>Password</b> :<%=password%><br>
 	<a href="ListUserServlet">Back</a>
-	<a href="UpdateUserServlet">Update User</a>
+	<a href="UpdateUserServlet?userId=<%=userId%>">Update User</a>
  		
 </body>
 </html>

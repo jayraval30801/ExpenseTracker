@@ -24,7 +24,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 	String expense = request.getParameter("expense");
 	CategoryDao catDao = new CategoryDao();
 	catDao.updateCategory(categoryId,categoryName,subcategoryName,expense);	
-	response.sendRedirect("ListCategoryServlet"); 
+	response.sendRedirect("UpdateCategory.jsp"); 
 		
 }
 	

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,9 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDao;
 
-
-@WebServlet("/DeleteUserServlet")
-public class DeleteUserServlet extends HttpServlet{
+@WebServlet("/EditUserServlet")
+public class EditUserServlet extends HttpServlet{
 	
 	/**
 	 * 
@@ -22,10 +22,14 @@ public class DeleteUserServlet extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int userId = Integer.parseInt(request.getParameter("userId"));
+		UserDao userdao = new UserDao();
 
-        UserDao userDao = new UserDao();
-		userDao.deleteUser(userId);
-		response.sendRedirect("ListUserServlet");
+		ResultSet rs = userdao.getUserById(userId);
+		request.setAttribute("rs",rs);	
+		RequestDispatcher rd = request.getRequestDispatcher("EditUser.jsp");
+		rd.forward(request,response);
+
 	}
 }

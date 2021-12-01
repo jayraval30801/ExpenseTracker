@@ -8,7 +8,7 @@
 </head>
 <body>
 
-		<form action="SignupServlet">
+		<form action="AddUserServlet" method="post">
 			FirstName= <input type="text" name="FirstName"><br>
 			Email= <input type="text" name="email"><br>
 			Password = <input type="password" name="password"> <br>

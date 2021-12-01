@@ -3,39 +3,61 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import bean.UserBean;
 import util.DBConnection;
 
 
 public class UserDao {
 	
-	public int insertUser(String FirstName,String email,String password) {
-	int i = -1;
+	public void insertUser(UserBean userbean) {
 	try {
 		Connection con = DBConnection.openconnection();
 		PreparedStatement pstmt = con.prepareStatement("insert into user (FirstName,email,password) values (?,?,?)");
-		pstmt.setString(1, FirstName);
-		pstmt.setString(2, email);
-		pstmt.setString(3, password);
+		pstmt.setString(1, userbean.getFirstName());
+		pstmt.setString(2, userbean.getEmail());
+		pstmt.setString(3, userbean.getPassword());
 		
-		i = pstmt.executeUpdate();
+	int i = pstmt.executeUpdate();
 	}catch(Exception e) {
 			e.printStackTrace();
 		
 	}
-		return i;
 	}
 	
-	public ResultSet getAllUser() {
-		ResultSet rs = null;
+	public ArrayList<UserBean> getAllUser() {
+	
 		try {
 			Connection con = DBConnection.openconnection();
 			PreparedStatement pstmt = con.prepareStatement("select * from user");
-			rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArrayList<UserBean> users = new ArrayList<>();
+			
+
+			while (rs.next()) {
+				
+				String FirstName = rs.getString("FirstName");
+				String email = rs.getString("email");
+				String password= rs.getString("password");
+				
+				UserBean userBean = new UserBean();
+				
+				userBean.setUserId(rs.getInt("UserId"));
+				userBean.setFirstName(FirstName);
+				userBean.setEmail(email);
+				userBean.setPassword(password);
+				
+				users.add(userBean);
+				
+			}
+			rs.close();
+			return users;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return rs;
+		return null;
 	}
 	
 	public void deleteUser(int userId) {

@@ -25,7 +25,7 @@
 			<b>SubCategoryName</b> :<%=subcategoryName%><bR>
 			<b>Expense</b> :<%=expense%><br>
 	<a href="ListCategoryServlet">Back</a>
-	<a href="UpdateCategoryServlet">Update Category</a>
+	<a href="UpdateCategoryServlet?categoryId=<%=categoryId%>">Update Category</a>
  		
 </body>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.UserBean;
 import dao.UserDao;
 
 @WebServlet("/AddUserServlet")
@@ -26,16 +27,18 @@ public class AddUserServlet extends HttpServlet{
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		UserBean userbean = new UserBean();
+		userbean.setFirstName(FirstName);
+		userbean.setEmail(email);
+		userbean.setPassword(password);
+		
 			UserDao userdao = new UserDao();
 			
-			int i = userdao.insertUser(FirstName, email, password);
+		     userdao.insertUser(userbean);
 			
-			RequestDispatcher rd = null ;
-			if(i == 1) {
-					rd = request.getRequestDispatcher("ListAllUser.jsp");
-			}else {
-				rd = request.getRequestDispatcher("Error.jsp");
-			}
+			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
+			rd.forward(request, response);
+			
 	}
 
 }
